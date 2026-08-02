@@ -738,6 +738,8 @@ if(!activityElement){
 
 const activity = Number(document.getElementById("calcActivity").value);
 
+const maintain = Math.round(bmr * activity);
+
 const goal = document.getElementById("calcGoal")
     ? document.getElementById("calcGoal").value
     : "maintain";
