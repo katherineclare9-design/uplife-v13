@@ -753,22 +753,21 @@ let calorieTarget;
 
 if(goal === "loss"){
 
-    calorieTarget = `${maintain - 500} - ${maintain - 250}`;
+    calorieTarget = `${maintain - 400} - ${maintain - 250}`;
 
 }
 
 else if(goal === "gain"){
 
-    calorieTarget = `${maintain + 250} - ${maintain + 500}`;
+    calorieTarget = `${maintain + 250} - ${maintain + 400}`;
 
 }
 
 else{
 
-    calorieTarget = maintain;
+    calorieTarget = `${maintain}`;
 
 }
-
 
 document.getElementById("calorieResults").innerHTML = `
         <h2>Recommended Calories</h2>
@@ -2567,15 +2566,15 @@ value="${userData.calorieProfile.weight}"
 
 <select id="calcActivity">
 
-<option value="1.2">Little or no exercise</option>
+<option value="1.2">Sedentary (little or no exercise)</option>
 
-<option value="1.375">Light exercise (1–3 days/week)</option>
+<option value="1.375">Lightly active (exercise 1–3 days/week)</option>
 
-<option value="1.55">Moderate exercise (3–5 days/week)</option>
+<option value="1.55">Moderately active (exercise 3–5 days/week)</option>
 
-<option value="1.725">Heavy exercise (6–7 days/week)</option>
+<option value="1.725">Very active (exercise 6–7 days/week)</option>
 
-<option value="1.9">Very heavy exercise / athlete</option>
+<option value="1.9">Extra active (hard training/physical job)</option>
 
 </select>
 
