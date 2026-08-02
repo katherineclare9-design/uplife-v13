@@ -771,24 +771,21 @@ else{
 
 userData.calorieProfile = {
 
-```
-age: age,
+    age: age,
 
-sex: sex,
+    sex: sex,
 
-height: height,
+    height: height,
 
-weight: weight,
+    weight: weight,
 
-activity: activity,
+    activity: activity,
 
-calorieGoal: goal,
+    calorieGoal: goal,
 
-calorieEstimate: calorieTarget
-```
+    calorieEstimate: calorieTarget
 
 };
-
 userData.calorieTargetToday = maintain;
 
 
@@ -897,10 +894,8 @@ userData.caloriesToday += calories;
 
 if(!userData.calorieTargetToday){
 
-```
-userData.calorieTargetToday =
-userData.calorieProfile.calorieEstimate || 0;
-```
+    userData.calorieTargetToday =
+    userData.calorieProfile.calorieEstimate || 0;
 
 }
 
