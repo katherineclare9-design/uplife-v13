@@ -1,0 +1,1142 @@
+/* =====================
+   FONTS
+===================== */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Averia+Libre:wght@400;700&family=Winky+Rough:wght@400;500;600;700&display=swap');
+
+
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+
+
+
+
+body{
+
+    margin:0;
+
+    padding:0;
+
+    font-family:'Averia Libre', cursive;
+
+    background:#ffe6f2;
+
+    color:#333;
+
+    min-height:100vh;
+
+}
+
+
+
+
+
+h1,
+h2,
+h3{
+
+    font-family:'Winky Rough', cursive;
+
+    letter-spacing:1px;
+
+}
+
+
+
+
+
+button{
+
+    font-family:'Winky Rough', cursive;
+
+    font-weight:600;
+
+    font-size:16px;
+
+    padding:12px 18px;
+
+    border-radius:15px;
+
+    border:none;
+
+    cursor:pointer;
+
+    margin:5px;
+
+    transition:.2s;
+
+}
+
+
+
+
+
+button:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+
+
+
+input,
+select,
+textarea{
+
+    width:90%;
+
+    padding:12px;
+
+    margin:8px;
+
+    border-radius:12px;
+
+    border:none;
+
+    font-family:'Averia Libre', cursive;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+textarea{
+
+    min-height:80px;
+
+}
+
+
+
+
+
+#app{
+
+    width:100%;
+
+    max-width:500px;
+
+    margin:auto;
+
+    padding:20px;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   CARDS
+===================== */
+
+
+.card{
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    margin:18px 0;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   WORKOUT ITEMS
+===================== */
+
+
+.workout-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border-radius:15px;
+
+    background:#fff0f7;
+
+}
+
+
+
+
+
+.workout-item input{
+
+    width:auto;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   BOTTOM NAVIGATION
+===================== */
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    z-index:9999;
+
+    display:flex;
+
+    gap:10px;
+
+    padding:10px;
+
+    background:white;
+
+    box-shadow:0 -5px 15px rgba(0,0,0,.15);
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    justify-content:flex-start;
+
+}
+
+
+
+.bottom-nav button{
+
+    flex:0 0 auto;
+
+    width:55px;
+
+    height:55px;
+
+    font-size:22px;
+
+    padding:10px;
+
+    border-radius:50%;
+
+}
+/* =====================
+   REGULAR MODE
+===================== */
+
+
+body.regular-theme{
+
+    background:#ffe6f2;
+
+    color:#333;
+
+}
+
+
+
+
+
+body.regular-theme .card{
+
+    background:#ffffff;
+
+}
+
+
+
+
+
+body.regular-theme button{
+
+    background:#ff8fcf;
+
+    color:white;
+
+}
+
+
+
+
+
+body.regular-theme .bottom-nav{
+
+    background:#ffffff;
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================
+   VACATION MODE
+===================== */
+
+
+body.vacation-theme{
+
+    background:#ffffff;
+
+    color:#333;
+
+}
+
+
+
+
+
+body.vacation-theme .card{
+
+    background:#faf8f2;
+
+    color:#333;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+
+
+
+
+body.vacation-theme button{
+
+    background:#eee8dc;
+
+    color:#5b5145;
+
+    border:1px solid #ddd1bc;
+
+}
+
+
+
+
+
+body.vacation-theme input,
+body.vacation-theme select,
+body.vacation-theme textarea{
+
+    background:#fffdf8;
+
+    color:#333;
+
+    border:1px solid #ddd1bc;
+
+}
+
+
+
+
+
+body.vacation-theme .workout-item{
+
+    background:#f8f3e8;
+
+}
+
+
+
+
+
+body.vacation-theme .diary-entry{
+
+    background:#fffaf0;
+
+}
+
+
+
+
+
+body.vacation-theme .bottom-nav{
+
+    background:#faf8f2;
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================
+   PERIOD MODE
+===================== */
+
+
+body.period-theme{
+
+    background:#8b0000;
+
+    color:white;
+
+}
+
+
+
+
+
+body.period-theme .card{
+
+    background:#a00000;
+
+    color:white;
+
+}
+
+
+
+
+
+body.period-theme button{
+
+    background:#5a0010;
+
+    color:white;
+
+    border:1px solid #3a0008;
+
+}
+
+
+
+
+
+body.period-theme input,
+body.period-theme select,
+body.period-theme textarea{
+
+    background:#fff5f5;
+
+    color:#550000;
+
+}
+
+
+
+
+
+body.period-theme .workout-item{
+
+    background:#b30000;
+
+    color:white;
+
+}
+
+
+
+
+
+body.period-theme .diary-entry{
+
+    background:#920000;
+
+    color:white;
+
+}
+
+
+
+
+
+body.period-theme .badge-card{
+
+    background:#a00000;
+
+    color:white;
+
+}
+
+
+
+
+
+body.period-theme .bottom-nav{
+
+    background:#5a0010;
+
+}
+
+
+
+
+
+body.period-theme .bottom-nav button{
+
+    background:#800014;
+
+    color:white;
+
+}
+/* =====================
+   BADGES
+===================== */
+
+
+.badge-tabs{
+
+display:flex;
+
+gap:10px;
+
+overflow-x:auto;
+
+margin:20px 0;
+
+padding-bottom:8px;
+
+}
+
+.badge-tabs button{
+
+background:#ffe3ef;
+
+border:none;
+
+border-radius:999px;
+
+padding:10px 18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+transition:.2s;
+
+}
+
+.badge-tabs button:hover{
+
+transform:scale(1.05);
+
+}
+
+.badge-tabs button.active-tab{
+
+background:#ff5ca8;
+
+color:white;
+
+box-shadow:0 0 18px rgba(255,92,168,.6);
+
+}
+
+.badge-gallery{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+
+
+
+
+.badge-card{
+
+    text-align:center;
+
+    padding:20px;
+
+    border-radius:25px;
+
+    background:white;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+    transition:.25s;
+
+}
+
+
+
+
+
+.badge-card:hover{
+
+    transform:translateY(-5px) scale(1.03);
+
+}
+
+
+
+
+
+.badge-card.unlocked{
+
+    border:3px solid #ffd700;
+
+    box-shadow:0 0 20px rgba(255,215,0,.4);
+
+}
+
+
+
+
+
+.badge-card.locked{
+
+    opacity:.45;
+
+    filter:grayscale(1);
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   PROGRESS BARS
+===================== */
+
+
+.progress-bar{
+
+    width:100%;
+
+    height:18px;
+
+    background:#ddd;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin:10px 0;
+
+}
+
+
+
+
+
+.progress-fill{
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:#ff8fcf;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   DIARY
+===================== */
+
+
+.diary-entry{
+
+    background:#fff4fa;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    margin:12px 0;
+
+    border-left:6px solid #ff8fcf;
+
+}
+
+
+
+
+
+.diary-entry h3{
+
+    margin-top:0;
+
+}
+
+
+
+
+
+.diary-entry p{
+
+    margin:8px 0;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   NUTRITION
+===================== */
+
+
+.water-display{
+
+    text-align:center;
+
+    font-size:30px;
+
+    letter-spacing:5px;
+
+    padding:10px;
+
+}
+
+
+
+
+
+#foodName,
+#foodCalories,
+#foodMeal,
+#foodNote{
+
+    border:2px solid #ffd1e8;
+
+}
+
+
+
+
+
+.nutrition-entry{
+
+    background:#fff7fb;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    margin:10px 0;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   CHECKBOXES
+===================== */
+
+
+input[type="checkbox"]{
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:#ff69b4;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   BUTTON GROUPS
+===================== */
+
+
+.card button{
+
+    min-width:110px;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   CALENDAR
+===================== */
+
+
+.calendar-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:8px;
+
+    margin:20px 0;
+
+    padding-bottom:20px;
+
+}
+
+
+
+.calendar-day{
+
+    min-height:65px;
+
+    overflow:hidden;
+
+}
+
+
+
+.calendar-day{
+
+    background:white;
+
+    border-radius:15px;
+
+    min-height:65px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.12);
+
+}
+
+
+
+.calendar-day:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+
+.calendar-day.empty{
+
+    background:transparent;
+
+    box-shadow:none;
+
+}
+
+
+
+.calendar-day.has-event{
+
+    border:3px solid #2f80ed;
+
+}
+
+
+
+#calendarEventBox{
+
+    margin-bottom:160px;
+
+}
+
+
+.calendar-grid{
+
+    margin-bottom:40px;
+
+}
+
+
+
+/* =====================
+   MOBILE
+===================== */
+
+
+body{
+
+    padding-bottom:140px;
+
+}
+
+
+
+
+
+@media(max-width:500px){
+
+
+
+    #app{
+
+        padding:15px;
+
+    }
+
+
+
+
+
+    h1{
+
+        font-size:30px;
+
+    }
+
+
+
+
+
+    .badge-gallery{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+
+
+    .bottom-nav button{
+
+        font-size:18px;
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   PERIOD FINAL TOUCHES
+===================== */
+
+
+body.period-theme .progress-fill{
+
+    background:#ffcccc;
+
+}
+
+
+
+
+
+body.period-theme .diary-entry{
+
+    border-left:6px solid #ffcccc;
+
+}
+
+
+
+
+
+body.period-theme input[type="checkbox"]{
+
+    accent-color:#ffcccc;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   VACATION FINAL TOUCHES
+===================== */
+
+
+body.vacation-theme .progress-fill{
+
+    background:#d8c7a5;
+
+}
+
+
+
+
+
+body.vacation-theme .diary-entry{
+
+    border-left:6px solid #d8c7a5;
+
+}
+
+
+
+
+
+body.vacation-theme input[type="checkbox"]{
+
+    accent-color:#d8c7a5;
+
+}
+
+
+
+
+
+/* =====================
+   EVENT MODE
+===================== */
+
+
+body.event-theme{
+
+    background:#dbeeff;
+
+    color:#1b2a41;
+
+}
+
+
+
+body.event-theme .card{
+
+    background:#ffffff;
+
+    color:#1b2a41;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+
+
+body.event-theme button{
+
+    background:#1e6fd9;
+
+    color:white;
+
+}
+
+
+
+body.event-theme input,
+body.event-theme select,
+body.event-theme textarea{
+
+    background:#f4f9ff;
+
+    color:#1b2a41;
+
+}
+
+
+
+body.event-theme .workout-item{
+
+    background:#e7f2ff;
+
+}
+
+
+
+body.event-theme .diary-entry{
+
+    background:#eef7ff;
+
+    border-left:6px solid #1e6fd9;
+
+}
+
+
+
+body.event-theme .bottom-nav{
+
+    background:#ffffff;
+
+}
+
+
+
+body.event-theme .bottom-nav button{
+
+    background:#1e6fd9;
+
+    color:white;
+
+}
