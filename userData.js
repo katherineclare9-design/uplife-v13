@@ -184,6 +184,17 @@ foodsToTry:[],
 
 nutritionNotes:"",
 
+// Calorie Calculator
+calorieProfile:{
+    age:"",
+    sex:"",
+    heightFeet:"",
+    heightInches:"",
+    weight:"",
+    activity:[],
+    calorieGoal:"",
+    calorieEstimate:""
+},
 
 
 
