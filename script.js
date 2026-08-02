@@ -1,149 +1,78 @@
 const app = document.getElementById("app");
 
 
-
 // =====================
 // CALENDAR SYSTEM
 // =====================
 
-
 let calendarMonth = new Date().getMonth();
-
 let calendarYear = new Date().getFullYear();
-
-
 
 
 function changeCalendarMonth(amount){
 
-
     calendarMonth += amount;
 
-
-
     if(calendarMonth > 11){
-
         calendarMonth = 0;
-
         calendarYear++;
-
     }
-
-
 
     if(calendarMonth < 0){
-
         calendarMonth = 11;
-
         calendarYear--;
-
     }
-
-
 
     showPage("calendar");
 
-
 }
-
-
 
 
 
 function addCalendarEvent(){
 
-
-
-    const title =
-
-    document.getElementById("eventTitle").value;
-
-
-
-    const date =
-
-    document.getElementById("eventDate").value;
-
-
-
-    const time =
-
-    document.getElementById("eventTime").value;
-
-
-
-    const type =
-
-    document.getElementById("eventType").value;
-
-
-
+    const title = document.getElementById("eventTitle").value;
+    const date = document.getElementById("eventDate").value;
+    const time = document.getElementById("eventTime").value;
+    const type = document.getElementById("eventType").value;
 
 
     if(title === "" || date === ""){
-
         return;
-
     }
 
 
+    userData.calendarEvents.push({
+
+        title:title,
+        date:date,
+        time:time,
+        type:type
+
+    });
 
 
+    saveUserData();
 
-userData.calendarEvents.push({
+    checkEventMode();
 
-    title:title,
-
-    date:date,
-
-    time:time,
-
-    type:type.trim()
-
-});
-
-
-console.log("SAVED EVENT TYPE:", type);
-
-
-
-
-
-saveUserData();
-
-if(mode === "Period"){
-
-    applyTheme();
-
-    showPage("settings");
-
-    return;
+    showPage("calendar");
 
 }
-
-checkEventMode();
-
-showPage("settings");
-
-}
-
-
-
-
 
 
 
 function checkEventMode(){
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date()
+    .toISOString()
+    .split("T")[0];
 
 
-const todaysEvents = userData.calendarEvents.filter(event =>
-    event.date === today
-);
-
-
-const todaysEvent = todaysEvents[todaysEvents.length - 1];
+    const todaysEvent =
+    userData.calendarEvents.find(event =>
+        event.date === today
+    );
 
 
     if(!todaysEvent){
@@ -171,9 +100,7 @@ const todaysEvent = todaysEvents[todaysEvents.length - 1];
 
 }
 
-// =====================
-// CALENDAR DAY CREATOR
-// =====================
+
 
 
 function deleteCalendarEvent(date){
@@ -182,6 +109,7 @@ function deleteCalendarEvent(date){
     userData.calendarEvents.filter(event =>
         event.date !== date
     );
+
 
     saveUserData();
 
@@ -193,96 +121,67 @@ function deleteCalendarEvent(date){
 
 
 
+
 function openCalendarDay(date){
 
-
-    const box = document.getElementById(
-        "calendarEventBox"
-    );
-
+    const box =
+    document.getElementById("calendarEventBox");
 
 
     box.innerHTML = `
 
-
-
     <div class="card">
 
-
-    <h2>
-    Add Event
-    </h2>
-
+    <h2>Add Event</h2>
 
 
     <input
-
     id="eventTitle"
-
     placeholder="Event Name"
-
     >
 
 
-
-
     <input
-
     id="eventDate"
-
     type="date"
-
     value="${date}"
-
     >
-
-
 
 
     <input
-
     id="eventTime"
-
     type="time"
-
     >
 
 
+    <select id="eventType">
+
+    <option value="Event">
+    Event
+    </option>
+
+    <option value="Vacation">
+    Vacation
+    </option>
+
+    </select>
 
 
-<select id="eventType">
-
-<option value="Event">Event</option>
-
-<option value="Vacation">Vacation</option>
-
-</select>
+    <button onclick="addCalendarEvent()">
+    ➕ Save Event
+    </button>
 
 
-<button onclick="addCalendarEvent()">
-
-➕ Save Event
-
-</button>
-
-
-<button onclick="deleteCalendarEvent('${date}')">
-
-🗑️ Delete Event
-
-</button>
-
+    <button onclick="deleteCalendarEvent('${date}')">
+    🗑️ Delete Event
+    </button>
 
 
     </div>
 
-
-
     `;
 
-
 }
-
 
 
 
@@ -302,17 +201,15 @@ function changeMode(mode){
 
     showPage("settings");
 
-    if(mode !== "Period"){
-        checkEventMode();
-    }
-
 }
 
 
 
 function toggleARFID(){
 
-    userData.arfidSupport = !userData.arfidSupport;
+    userData.arfidSupport =
+    !userData.arfidSupport;
+
 
     saveUserData();
 
@@ -324,48 +221,31 @@ function toggleARFID(){
 
 
 
-
-
-
-
-
-
 function applyTheme(){
 
     document.body.className = "";
 
 
     if(userData.mode === "Regular"){
-
         document.body.classList.add("regular-theme");
-
     }
 
 
     if(userData.mode === "Vacation"){
-
         document.body.classList.add("vacation-theme");
-
     }
 
 
     if(userData.mode === "Period"){
-
         document.body.classList.add("period-theme");
-
     }
 
 
     if(userData.mode === "Event"){
-
         document.body.classList.add("event-theme");
-
     }
 
-
 }
-
-
 
 
 
@@ -391,50 +271,33 @@ function createProfile(){
     document.getElementById("goal").value;
 
 
-
     userData.profileDate =
     new Date().toLocaleDateString();
-
 
 
     userData.profileCreated = true;
 
 
-
     addDiaryEntry(
-
         "achievement",
-
         "Profile Created",
-
         "Started the UpLift journey",
-
         10
-
     );
-
 
 
     addXP(10);
 
 
-
     saveUserData();
-
 
 
     checkBadges();
 
 
-
     showPage("profile");
 
-
 }
-
-
-
-
 
 
 
@@ -450,26 +313,18 @@ function addXP(amount){
     userData.xp += amount;
 
 
-
     while(userData.xp >= userData.xpToNextLevel){
-
 
         userData.xp -= userData.xpToNextLevel;
 
-
         userData.level++;
 
-
         userData.xpToNextLevel += 100;
-
 
     }
 
 
-
 }
-
-
 
 
 
@@ -486,45 +341,27 @@ function addWater(){
 
     if(userData.waterToday < userData.waterGoal){
 
-
-
         userData.waterToday++;
-
-
 
         addXP(5);
 
 
-
         addDiaryEntry(
-
             "nutrition",
-
             "Water Added",
-
             "Drank 1 cup of water",
-
             5
-
         );
-
 
 
         saveUserData();
 
-
-
     }
-
 
 
     showPage("nutrition");
 
-
 }
-
-
-
 
 
 
@@ -538,12 +375,13 @@ function resetWater(){
 
 }
 
+
+
 function showCalorieCalculator(){
 
     showPage("calorieCalculator");
 
 }
-
 
 
 
@@ -558,124 +396,209 @@ function showCalorieCalculator(){
 function completeWorkout(workoutName){
 
 
-
     if(userData.completedToday.includes(workoutName)){
-
-
         return;
-
-
     }
-
 
 
     userData.completedToday.push(workoutName);
 
-
-
     userData.workoutsCompleted++;
 
 
-
-
-
-    const workout = workoutTypes[workoutName];
-
-
-
+    const workout =
+    workoutTypes[workoutName];
 
 
     if(workout){
 
-
-
         addXP(workout.xp);
-
 
 
         switch(workout.category){
 
-
-
             case "core":
-
                 userData.coreWorkouts++;
-
                 break;
-
-
 
             case "strength":
-
                 userData.strengthWorkouts++;
-
                 break;
-
-
 
             case "backspot":
-
                 userData.backspotWorkouts++;
-
                 break;
-
-
 
             case "flexibility":
-
                 userData.flexibilitySessions++;
-
                 break;
-
-
 
             case "lowerBody":
-
                 userData.lowerBodyWorkouts++;
-
                 break;
-
-
 
             case "upperBody":
-
                 userData.upperBodyWorkouts++;
-
                 break;
-
-
 
             case "jump":
-
                 userData.jumpSessions++;
-
                 break;
-
-
 
         }
 
+    }
 
+
+    addDiaryEntry(
+        "workout",
+        workoutName,
+        "Completed workout",
+        workout ? workout.xp : 0
+    );
+
+
+    saveUserData();
+
+    checkBadges();
+
+}
+// =====================
+// NUTRITION CALCULATOR
+// =====================
+
+
+function calculateCalories(){
+
+    const age =
+    Number(document.getElementById("calcAge").value);
+
+
+    const sex =
+    document.getElementById("calcSex").value;
+
+
+    const feet =
+    Number(document.getElementById("calcFeet").value);
+
+
+    const inches =
+    Number(document.getElementById("calcInches").value);
+
+
+    const weight =
+    Number(document.getElementById("calcWeight").value);
+
+
+
+    const height =
+    (feet * 12) + inches;
+
+
+
+    const kg =
+    weight * 0.453592;
+
+
+    const cm =
+    height * 2.54;
+
+
+
+    let bmr;
+
+
+
+    if(sex === "Male"){
+
+        bmr =
+        (10 * kg) +
+        (6.25 * cm) -
+        (5 * age) +
+        5;
+
+    }
+
+    else{
+
+        bmr =
+        (10 * kg) +
+        (6.25 * cm) -
+        (5 * age) -
+        161;
 
     }
 
 
 
 
-
-    addDiaryEntry(
-
-        "workout",
-
-        workoutName,
-
-        "Completed workout",
-
-        workout ? workout.xp : 0
-
-    );
+    const activity =
+    Number(document.getElementById("calcActivity").value);
 
 
+
+    const maintain =
+    Math.round(bmr * activity);
+
+
+
+    const goal =
+    document.getElementById("calcGoal").value;
+
+
+
+    let calorieTarget;
+
+
+
+    if(goal === "loss"){
+
+        calorieTarget =
+        `${maintain - 400} - ${maintain - 250}`;
+
+    }
+
+
+    else if(goal === "gain"){
+
+        calorieTarget =
+        `${maintain + 250} - ${maintain + 400}`;
+
+    }
+
+
+    else{
+
+        calorieTarget =
+        `${maintain}`;
+
+    }
+
+
+
+
+    userData.calorieProfile = {
+
+        age:age,
+
+        sex:sex,
+
+        height:height,
+
+        weight:weight,
+
+        activity:activity,
+
+        calorieGoal:goal,
+
+        calorieEstimate:calorieTarget
+
+    };
+
+
+
+    userData.calorieTargetToday =
+    maintain;
 
 
 
@@ -683,223 +606,75 @@ function completeWorkout(workoutName){
 
 
 
-    checkBadges();
+    document.getElementById("calorieResults").innerHTML = `
 
+    <h2>Recommended Calories</h2>
 
+    <p>
+    <b>Your Goal:</b>
+    ${calorieTarget} calories
+    </p>
 
-}
 
+    <p>
+    <b>Maintenance:</b>
+    ${maintain} calories
+    </p>
 
-
-
-
-
-
-
-// =====================
-// NUTRITION
-// =====================
-
-
-function calculateCalories(){
-
-const age = Number(document.getElementById("calcAge").value);
-
-const sex = document.getElementById("calcSex").value;
-
-const feet = Number(document.getElementById("calcFeet").value);
-
-const inches = Number(document.getElementById("calcInches").value);
-
-const height = (feet * 12) + inches;
-const weight = Number(document.getElementById("calcWeight").value);
-
-const activityElement = document.getElementById("calcActivity");
-
-if(!activityElement){
-
-    return;
-
-}
-    const kg = weight * 0.453592;
-
-    const cm = height * 2.54;
-
-    let bmr;
-
-    if(sex === "Male"){
-
-        bmr = 10 * kg + 6.25 * cm - 5 * age + 5;
-
-    }
-
-    else{
-
-        bmr = 10 * kg + 6.25 * cm - 5 * age - 161;
-
-    }
-
-const activity = Number(document.getElementById("calcActivity").value);
-
-const maintain = Math.round(bmr * activity);
-
-const goal = document.getElementById("calcGoal")
-    ? document.getElementById("calcGoal").value
-    : "maintain";
-
-
-let calorieTarget;
-
-
-if(goal === "loss"){
-
-    calorieTarget = `${maintain - 400} - ${maintain - 250}`;
-
-}
-
-else if(goal === "gain"){
-
-    calorieTarget = `${maintain + 250} - ${maintain + 400}`;
-
-}
-
-else{
-
-    calorieTarget = `${maintain}`;
-
-}
-
-userData.calorieProfile = {
-
-    age: age,
-
-    sex: sex,
-
-    height: height,
-
-    weight: weight,
-
-    activity: activity,
-
-    calorieGoal: goal,
-
-    calorieEstimate: calorieTarget
-
-};
-userData.calorieTargetToday = maintain;
-
-
-
-saveUserData();
-
-
-userData.calorieProfile = {
-
-    age: age,
-
-    sex: sex,
-
-    height: height,
-
-    weight: weight,
-
-    activity: activity,
-
-    calorieGoal: goal,
-
-    calorieEstimate: calorieTarget
-
-};
-
-
-saveUserData();
-
-
-document.getElementById("calorieResults").innerHTML = `
-        <h2>Recommended Calories</h2>
-
-<p><b>Your Goal:</b> ${calorieTarget} calories</p>
-
-<p><b>Maintenance:</b> ${maintain} calories</p>
     `;
 
+
 }
+
+
+
 
 function addNutritionFood(){
 
 
     const food =
-
     document.getElementById("foodName").value;
 
 
 
     const calories =
-
     Number(document.getElementById("foodCalories").value) || 0;
 
 
 
     const meal =
-
     document.getElementById("foodMeal").value;
 
 
 
     const note =
-
     document.getElementById("foodNote").value;
 
 
 
-
-
     if(food === ""){
-
         return;
-
     }
-
-
-
 
 
 
     userData.nutritionEntries.push({
 
-
         food:food,
-
 
         calories:calories,
 
-
         meal:meal,
-
 
         note:note,
 
-
         date:new Date().toLocaleDateString()
-
 
     });
 
 
 
-
-
-
-userData.caloriesToday += calories;
-
-if(!userData.calorieTargetToday){
-
-    userData.calorieTargetToday =
-    userData.calorieProfile.calorieEstimate || 0;
-
-}
-
-
+    userData.caloriesToday += calories;
 
 
 
@@ -921,8 +696,6 @@ if(!userData.calorieTargetToday){
 
 
 
-
-
     saveUserData();
 
 
@@ -931,6 +704,12 @@ if(!userData.calorieTargetToday){
 
 
 }
+
+
+
+
+
+
 // =====================
 // DIARY CONTROLS
 // =====================
@@ -939,23 +718,19 @@ if(!userData.calorieTargetToday){
 function changeDiaryDate(amount){
 
 
-    let current = new Date(
-
+    let current =
+    new Date(
         userData.selectedDiaryDate || new Date()
-
     );
 
 
     current.setDate(
-
         current.getDate() + amount
-
     );
 
 
 
     userData.selectedDiaryDate =
-
     current.toLocaleDateString();
 
 
@@ -964,14 +739,9 @@ function changeDiaryDate(amount){
 
 
 
-    showPage("diary");
-
-
+    showPage("foodlog");
 
 }
-
-
-
 
 
 
@@ -979,7 +749,6 @@ function resetDiaryDate(){
 
 
     userData.selectedDiaryDate =
-
     new Date().toLocaleDateString();
 
 
@@ -988,14 +757,9 @@ function resetDiaryDate(){
 
 
 
-    showPage("diary");
-
-
+    showPage("foodlog");
 
 }
-
-
-
 
 
 
@@ -1010,7 +774,6 @@ function removeNutritionEntry(index){
 
 
     const item =
-
     userData.nutritionEntries[index];
 
 
@@ -1018,11 +781,15 @@ function removeNutritionEntry(index){
     if(item){
 
 
-        userData.caloriesToday -= item.calories || 0;
+        userData.caloriesToday -=
+        item.calories || 0;
 
 
-        userData.nutritionEntries.splice(index,1);
 
+        userData.nutritionEntries.splice(
+            index,
+            1
+        );
 
 
     }
@@ -1032,11 +799,9 @@ function removeNutritionEntry(index){
     saveUserData();
 
 
-
     showPage("nutrition");
 
 
-
 }
 
 
@@ -1045,21 +810,29 @@ function removeNutritionEntry(index){
 
 
 
-
-
 // =====================
-// BADGE CATEGORY
+// BADGES
 // =====================
+
 
 function changeBadgeCategory(category){
 
-    userData.selectedBadgeCategory = category;
+
+    userData.selectedBadgeCategory =
+    category;
+
 
     saveUserData();
 
+
     showPage("badges");
 
+
 }
+
+
+
+
 
 
 
@@ -1067,13 +840,11 @@ function changeBadgeCategory(category){
 // PAGE DISPLAY
 // =====================
 
+
 function showPage(page){
 
 
 let content = "";
-
-
-
 
 
 
@@ -1086,49 +857,35 @@ let content = "";
 if(page === "calendar"){
 
 
-
-const firstDay = new Date(
-
+const firstDay =
+new Date(
     calendarYear,
-
     calendarMonth,
-
     1
-
 ).getDay();
 
 
 
-const daysInMonth = new Date(
-
+const daysInMonth =
+new Date(
     calendarYear,
-
     calendarMonth + 1,
-
     0
-
 ).getDate();
 
 
 
-const monthName = new Date(
-
+const monthName =
+new Date(
     calendarYear,
-
     calendarMonth
-
-).toLocaleString(
-
+)
+.toLocaleString(
     "default",
-
     {
-
         month:"long",
-
         year:"numeric"
-
     }
-
 );
 
 
@@ -1139,240 +896,130 @@ let calendarHTML = "";
 
 for(let i = 0; i < firstDay; i++){
 
-    calendarHTML += `<div class="calendar-day empty"></div>`;
+    calendarHTML +=
+    `<div class="calendar-day empty"></div>`;
 
 }
-
 
 
 
 for(let day = 1; day <= daysInMonth; day++){
 
 
-    const dateString =
-
-    `${calendarYear}-${String(calendarMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-
-
-
-    const hasEvent =
-
-    userData.calendarEvents.some(event =>
-
-        event.date === dateString
-
-    );
+const dateString =
+`${calendarYear}-${String(calendarMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
 
 
-    calendarHTML += `
+const hasEvent =
+userData.calendarEvents.some(event =>
+event.date === dateString
+);
 
 
-    <div class="calendar-day ${hasEvent ? "has-event":""}"
 
-    onclick="openCalendarDay('${dateString}')">
-
-
-    <h3>${day}</h3>
+calendarHTML += `
 
 
-    ${hasEvent ? "🟦" : ""}
+<div class="calendar-day ${hasEvent ? "has-event":""}"
+
+onclick="openCalendarDay('${dateString}')">
 
 
-    </div>
+<h3>${day}</h3>
 
 
-    `;
+${hasEvent ? "🟦" : ""}
 
+
+</div>
+
+
+`;
 
 }
 
 
 
-
-
 content = `
-
-
 
 <h1>🗓️ Calendar</h1>
 
 
-
-
 <div class="card">
 
-
-
 <button onclick="changeCalendarMonth(-1)">
-
 ⬅️
-
 </button>
 
 
-
-
-<h2>
-
-${monthName}
-
-</h2>
-
-
+<h2>${monthName}</h2>
 
 
 <button onclick="changeCalendarMonth(1)">
-
 ➡️
-
 </button>
 
 
-
 </div>
-
-
-
-
 
 
 
 <div class="calendar-grid">
 
-
 ${calendarHTML}
 
-
 </div>
-
-
-
 
 
 
 <div id="calendarEventBox"></div>
 
 
-
 `;
 
-
-
 }
-
-
-
-
-
-
 // =====================
-// HOME
+// REMAINING PAGES
 // =====================
 
 
 if(page === "home"){
 
 
-
 content = `
-
 
 
 <h1>💖 FULL OUT</h1>
 
 
-
-
-
 <div class="card">
-
 
 <h2>⭐ Level ${userData.level}</h2>
 
-
 <p>
-
 ${userData.xp}/${userData.xpToNextLevel} XP
-
 </p>
-
 
 </div>
 
 
 
-
-
-
-
 <div class="card">
-<div class="card">
-
 
 <h2>🔥 ${userData.streak} Day Streak</h2>
 
 
-
 <p>
-
 Keep showing up 💪
-
 </p>
 
 
-
 <p>
-
 🏆 Best Streak:
-
 ${userData.longestStreak}
-
 Days
-
 </p>
-
-
-
-<p>
-
-Next Milestone:
-
-${
-    userData.streak < 3
-    ?
-    "🌱 3 Days"
-    :
-    userData.streak < 7
-    ?
-    "🔥 7 Days"
-    :
-    userData.streak < 14
-    ?
-    "⚡ 14 Days"
-    :
-    userData.streak < 30
-    ?
-    "🏆 30 Days"
-    :
-    "👑 100 Days"
-}
-
-</p>
-
-
-</div>
-
-
-<h2>🔥 Daily Check-In</h2>
-
-
-<p>
-
-Complete your UpLift day to grow your streak!
-
-</p>
-
 
 
 
@@ -1383,41 +1030,33 @@ Complete your UpLift day to grow your streak!
 </button>
 
 
-
 </div>
+
+
+
+<div class="card">
 
 <h2>🥗 Daily Nutrition</h2>
 
 
 <p>
-
-🔥 Calories: ${userData.caloriesToday}
-
+🔥 Calories:
+${userData.caloriesToday}
 </p>
 
 
 <p>
-
 💧 Water:
-
 ${userData.waterToday}/${userData.waterGoal}
-
 </p>
 
 
 </div>
 
 
-
 `;
 
-
-
 }
-
-
-
-
 
 
 
@@ -1435,36 +1074,32 @@ if(page === "nutrition"){
 let cups = "";
 
 
-
 for(let i = 0; i < userData.waterGoal; i++){
 
 
-    cups += i < userData.waterToday
-
-    ?
-
-    "💧"
-
-    :
-
-    "⬜";
-
+cups +=
+i < userData.waterToday
+?
+"💧"
+:
+"⬜";
 
 
 }
 
 
 
-
 content = `
-
 
 
 <h1>🥗 Nutrition</h1>
 
+
+
 <div class="card">
 
 <h2>🎯 Daily Calorie Estimate</h2>
+
 
 <p>
 
@@ -1474,15 +1109,17 @@ userData.calorieProfile.calorieEstimate
 userData.calorieProfile.calorieEstimate + " calories/day"
 :
 "No estimate yet."
-
 }
+
 </p>
+
 
 <button onclick="showPage('calorieCalculator')">
 
 Calculate Calories
 
 </button>
+
 
 </div>
 
@@ -1491,8 +1128,8 @@ Calculate Calories
 
 <div class="card">
 
-
 <h2>🔥 Calories Today</h2>
+
 
 <h1>
 
@@ -1500,13 +1137,14 @@ ${userData.caloriesToday}
 
 </h1>
 
+
 <p>
 
 🎯 Goal:
-
 ${userData.calorieTargetToday || "Set calculator first"}
 
 </p>
+
 
 <p>
 
@@ -1528,13 +1166,7 @@ calories
 </p>
 
 
-
-
 </div>
-
-
-
-
 
 
 
@@ -1542,9 +1174,7 @@ calories
 
 <div class="card">
 
-
 <h2>💧 Hydration</h2>
-
 
 
 <div class="water-display">
@@ -1554,13 +1184,11 @@ ${cups}
 </div>
 
 
-
 <p>
 
 ${userData.waterToday}/${userData.waterGoal} cups
 
 </p>
-
 
 
 
@@ -1572,13 +1200,11 @@ ${userData.waterToday}/${userData.waterGoal} cups
 
 
 
-
 <button onclick="resetWater()">
 
 Reset
 
 </button>
-
 
 
 </div>
@@ -1587,75 +1213,41 @@ Reset
 
 
 
-
-
-
-
 <div class="card">
-
 
 <h2>🍽️ Log Food</h2>
 
 
-
 <input
-
 id="foodName"
-
 placeholder="Food name"
-
 >
-
-
 
 
 <input
-
 id="foodCalories"
-
 type="number"
-
 placeholder="Calories"
-
 >
-
-
 
 
 <select id="foodMeal">
 
-
 <option>Breakfast</option>
-
 
 <option>Lunch</option>
 
-
 <option>Dinner</option>
 
-
 <option>Snack</option>
-
 
 </select>
 
 
-
-
-
-
 <textarea
-
 id="foodNote"
-
 placeholder="Notes"
-
 ></textarea>
-
-
-
-
-
 
 
 
@@ -1666,928 +1258,12 @@ placeholder="Notes"
 </button>
 
 
-
-</div>
-
-
-
-
-
-
-
-<div class="card">
-
-<h2>🔥 Calorie Calculator</h2>
-
-<p>
-
-Find your recommended daily calorie intake.
-
-</p>
-
-<button onclick="showCalorieCalculator()">
-
-Open Calculator
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>📖 Today</h2>
-
-<p>
-
-Your food history is saved in your Diary.
-
-</p>
-
-<button onclick="showPage('foodlog')">
-
-Open Food Log
-
-</button>
-
-</div>
-
-
-
-`;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// DIARY PAGE
-// =====================
-
-
-if(page === "foodlog"){
-
-
-
-const selected =
-
-userData.selectedDiaryDate ||
-new Date().toLocaleDateString();
-
-
-
-
-
-const entries =
-
-getDiaryByDate(selected);
-
-
-
-
-
-
-content = `
-
-
-
-<h1>📋 Food Log</h1>
-
-
-
-
-
-
-<div class="card">
-
-
-<button onclick="changeDiaryDate(-1)">
-
-⬅️
-
-</button>
-
-
-
-
-<button onclick="resetDiaryDate()">
-
-Today
-
-</button>
-
-
-
-
-
-<button onclick="changeDiaryDate(1)">
-
-➡️
-
-</button>
-
-
-
-
-
-<h2>
-
-${selected}
-
-</h2>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-${
-
-entries.length === 0
-
-
-
-?
-
-
-
-`
-
-<h3>
-
-🌱 Nothing logged this day
-
-</h3>
-
-`
-
-
-
-:
-
-
-
-entries.map(entry=>`
-
-
-
-<div class="diary-entry">
-
-
-
-<h3>
-
-
-${
-
-entry.type === "nutrition"
-
-?
-
-"🥗"
-
-:
-
-entry.type === "workout"
-
-?
-
-"💪"
-
-:
-
-"⭐"
-
-}
-
-
-${entry.title}
-
-
-</h3>
-
-
-
-
-
-<p>
-
-${entry.details}
-
-</p>
-
-
-
-
-
-
-<p>
-
-⭐ +${entry.xp} XP
-
-</p>
-
-
-
-</div>
-
-
-
-`).join("")
-
-
-
-}
-
-
-
-</div>
-
-
-
-`;
-
-
-
-}
-// =====================
-// PERSONAL DIARY PAGE
-// =====================
-
-
-if(page === "diary"){
-
-
-
-const entries = userData.personalDiaryEntries;
-
-
-
-const pageIndex = userData.selectedPersonalDiaryPage || 0;
-
-
-
-const entry = entries[pageIndex];
-
-
-
-content = `
-
-
-
-<h1>📔 My Diary</h1>
-
-
-
-<div class="card">
-
-
-
-<button onclick="changeDiaryPage(-1)">
-
-⬅️ Previous
-
-</button>
-
-
-
-
-<p>
-
-Page ${entries.length === 0 ? 0 : pageIndex + 1}
-
-of
-
-${entries.length}
-
-</p>
-
-
-
-
-<button onclick="changeDiaryPage(1)">
-
-Next ➡️
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="card">
-
-
-
-${
-entry
-
-?
-
-
-`
-
-<h2>
-
-${entry.date}
-
-</h2>
-
-
-<hr>
-
-
-<p>
-
-${entry.text}
-
-</p>
-
-
-
-<button onclick="deletePersonalDiaryEntry(${pageIndex})">
-
-🗑️ Delete Page
-
-</button>
-
-`
-
-:
-
-
-`
-
-<h2>
-
-📖 Empty Page
-
-</h2>
-
-
-<p>
-
-Write your first diary entry!
-
-</p>
-
-
-<textarea
-
-id="diaryText"
-
-placeholder="Write your thoughts..."
-
-></textarea>
-
-
-<br>
-
-
-<button onclick="savePersonalDiaryEntry()">
-
-Save Page
-
-</button>
-
-
-`
-
-}
-
-
-
-</div>
-
-
-
-`;
-
-
-
-
-
-`).join("")
-
-}
-
-
-
 </div>
 
 
 `;
 
 }
-
-
-
-
-
-// =====================
-// TRAINING PAGE
-// =====================
-
-
-if(page === "training"){
-
-
-
-const days = [
-
-"Sunday",
-
-"Monday",
-
-"Tuesday",
-
-"Wednesday",
-
-"Thursday",
-
-"Friday",
-
-"Saturday"
-
-];
-
-
-
-const today = days[new Date().getDay()];
-
-
-
-
-
-if(userData.mode === "Vacation"){
-
-
-
-content = `
-
-
-
-<h1>🤍 Vacation Workout</h1>
-
-
-
-<div class="card">
-
-<h3>🌅 Morning</h3>
-
-
-${vacationWorkouts.morning.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>🌙 Night</h3>
-
-
-${vacationWorkouts.nighttime.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-`;
-
-
-}
-
-else if(userData.mode === "Event"){
-
-
-
-const workout = dailyWorkouts[today];
-
-
-content = `
-
-
-
-<h1>💙 Event Day Workout</h1>
-
-
-<h2>${today}</h2>
-
-
-
-
-<div class="card">
-
-
-<h3>🌅 Morning</h3>
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes("Event Morning Routine") ? "checked":""}
-
-onchange="completeWorkout('Event Morning Routine')"
-
->
-
-
-<span>Event Morning Routine</span>
-
-
-</label>
-
-
-</div>
-
-
-
-
-<div class="card">
-
-
-<h3>🌅 Morning</h3>
-
-
-${workout.morning.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-
-<div class="card">
-
-
-<h3>☀️ Midday</h3>
-
-
-${workout.midday.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-
-<div class="card">
-
-
-<h3>🌙 Night</h3>
-
-
-${workout.nighttime.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-`;
-}
-
-else{
-
-
-
-const workout = dailyWorkouts[today];
-
-
-
-content = `
-
-
-
-<h1>💪 Today's Workout</h1>
-
-
-<h2>${today}</h2>
-
-
-
-
-
-
-<div class="card">
-
-
-<h3>🌅 Morning</h3>
-
-
-
-${workout.morning.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-
-<span>${item}</span>
-
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h3>☀️ Midday</h3>
-
-
-${workout.midday.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
->
-
-
-<span>${item}</span>
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h3>
-${
-    userData.mode === "Period"
-    ? "🌙 Night (Optional)"
-    : "🌙 Night"
-}
-</h3>
-
-
-${workout.nighttime.map(item=>`
-
-
-
-<label class="workout-item">
-
-
-<input
-
-type="checkbox"
-
-${userData.completedToday.includes(item) ? "checked":""}
-
-onchange="completeWorkout('${item}')"
-
-
-
->
-
-
-
-<span>${item}</span>
-
-
-
-</label>
-
-
-
-`).join("")}
-
-
-
-</div>
-
-
-
-`;
-
-
-
-}
-
-
-
-}
-
 
 
 
@@ -2600,106 +1276,23 @@ onchange="completeWorkout('${item}')"
 // CALORIE CALCULATOR PAGE
 // =====================
 
-if(page === "calorieCalculator"){
-
-content = `
-
-<h1>🔥 Calorie Calculator</h1>
-
-<div class="card">
-
-<h2>Your Information</h2>
-
-<input
-id="calcAge"
-type="number"
-placeholder="Age"
-value="${userData.calorieProfile.age || ""}"
->
-
-<select id="calcSex">
-<option ${userData.calorieProfile.sex==="Female"?"selected":""}>Female</option>
-<option ${userData.calorieProfile.sex==="Male"?"selected":""}>Male</option>
-</select>
-
-<input
-id="calcFeet"
-type="number"
-placeholder="Height (feet)"
-value="${userData.calorieProfile.heightFeet}"
->
-
-<input
-id="calcHeight"
-type="number"
-placeholder="Height (inches)"
-value="${userData.calorieProfile.height || ""}"
->
-
-<input
-id="calcWeight"
-type="number"
-placeholder="Weight (lbs)"
-value="${userData.calorieProfile.weight || ""}"
->
-
-<select id="calcActivity">
-
-<option value="1.2">Sedentary (little or no exercise)</option>
-
-<option value="1.375">Lightly active (exercise 1–3 days/week)</option>
-
-<option value="1.55">Moderately active (exercise 3–5 days/week)</option>
-
-<option value="1.725">Very active (exercise 6–7 days/week)</option>
-
-<option value="1.9">Extra active (hard training/physical job)</option>
-
-</select>
-
-
-<select id="calcGoal">
-
-<option value="loss" ${userData.calorieProfile.calorieGoal==="loss"?"selected":""}>
-Fat Loss
-</option>
-
-<option value="maintain" ${userData.calorieProfile.calorieGoal==="maintain"?"selected":""}>
-Maintenance
-</option>
-
-<option value="gain" ${userData.calorieProfile.calorieGoal==="gain"?"selected":""}>
-Muscle Gain
-</option>
-
-</select>
-
-<button onclick="calculateCalories()">
-Calculate
-</button>
-
-<div id="calorieResults"></div>
-
-</div>
-
-`;
-
-
-}
-
-// =====================
-// CALORIE CALCULATOR
-// =====================
 
 if(page === "calorieCalculator"){
 
+
 content = `
+
 
 <h1>🔥 Calorie Calculator</h1>
 
+
+
 <div class="card">
 
+
 <h2>Your Information</h2>
+
+
 
 <input
 id="calcAge"
@@ -2707,176 +1300,130 @@ type="number"
 placeholder="Age"
 >
 
+
+
 <select id="calcSex">
+
 <option>Female</option>
+
 <option>Male</option>
+
 </select>
+
+
 
 <input
 id="calcFeet"
 type="number"
-placeholder="Height (feet)"
+placeholder="Height Feet"
 >
+
+
 
 <input
 id="calcInches"
 type="number"
-placeholder="Height (inches)"
+placeholder="Height Inches"
 >
+
+
 
 <input
 id="calcWeight"
 type="number"
-placeholder="Weight (lbs)"
+placeholder="Weight lbs"
 >
+
+
 
 <select id="calcActivity">
 
-<option value="1.2" ${userData.calorieProfile.activity==1.2?"selected":""}>
+
+<option value="1.2">
 Little or no exercise
 </option>
 
-<option value="1.375" ${userData.calorieProfile.activity==1.375?"selected":""}>
-Light exercise (1–3 days/week)
+
+<option value="1.375">
+Light exercise
 </option>
 
-<option value="1.55" ${userData.calorieProfile.activity==1.55?"selected":""}>
-Moderate exercise (3–5 days/week)
+
+<option value="1.55">
+Moderate exercise
 </option>
 
-<option value="1.725" ${userData.calorieProfile.activity==1.725?"selected":""}>
-Heavy exercise (6–7 days/week)
+
+<option value="1.725">
+Heavy exercise
 </option>
 
-<option value="1.9" ${userData.calorieProfile.activity==1.9?"selected":""}>
-Very heavy exercise / athlete
+
+<option value="1.9">
+Athlete level
 </option>
+
 
 </select>
+
+
+
 
 <select id="calcGoal">
 
-<option value="loss">Fat Loss</option>
 
-<option value="maintain">Maintenance</option>
+<option value="loss">
+Fat Loss
+</option>
 
-<option value="gain">Muscle Gain</option>
+
+<option value="maintain">
+Maintenance
+</option>
+
+
+<option value="gain">
+Muscle Gain
+</option>
+
 
 </select>
 
 
+
 <button onclick="calculateCalories()">
+
 Calculate
+
 </button>
+
+
 <div id="calorieResults"></div>
 
+
 </div>
+
 
 `;
 
 }
 
+
+
+
+
 // =====================
-// PROFILE PAGE
+// PROFILE
 // =====================
 
 
 if(page === "profile"){
 
 
-
-if(!userData.profileCreated){
-
-
-
 content = `
-
-
-
-<h1>👤 Create Profile</h1>
-
-
-
-
-<div class="card">
-
-
-<input
-
-id="profileName"
-
-placeholder="Name"
-
->
-
-
-
-
-<select id="athleteType">
-
-
-<option>Cheer Athlete</option>
-
-
-<option>Strength Athlete</option>
-
-
-<option>Flexibility Athlete</option>
-
-
-</select>
-
-
-
-
-
-
-<input
-
-id="goal"
-
-placeholder="Goal"
-
->
-
-
-
-
-<button onclick="createProfile()">
-
-
-Save Profile
-
-
-</button>
-
-
-
-</div>
-
-
-
-`;
-
-
-
-}
-
-
-
-else{
-
-
-
-content = `
-
 
 
 <h1>👤 Profile</h1>
-
-
-
-
 
 
 <div class="card">
@@ -2884,208 +1431,27 @@ content = `
 
 <h2>
 
-${userData.profileName}
+${userData.profileName || "Create Profile"}
 
 </h2>
 
 
-
 <p>
-
-🤸 ${userData.athleteType}
-
+🤸 ${userData.athleteType || ""}
 </p>
 
 
-
 <p>
-
-🎯 ${userData.goal}
-
+🎯 ${userData.goal || ""}
 </p>
-
-
-
-<p>
-
-📅 Joined ${userData.profileDate}
-
-</p>
-
 
 
 </div>
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h2>📊 Training Stats</h2>
-
-
-
-<p>
-
-💪 Total Workouts:
-
-${userData.workoutsCompleted}
-
-</p>
-
-
-
-<hr>
-
-
-
-
-<p>
-
-🔥 Core:
-
-${userData.coreWorkouts}
-
-</p>
-
-
-
-<p>
-
-🏋️ Strength:
-
-${userData.strengthWorkouts}
-
-</p>
-
-
-
-<p>
-
-🤸 Backspot:
-
-${userData.backspotWorkouts}
-
-</p>
-
-
-
-<p>
-
-🩰 Flexibility:
-
-${userData.flexibilitySessions}
-
-</p>
-
-
-
-<p>
-
-🦵 Lower Body:
-
-${userData.lowerBodyWorkouts}
-
-</p>
-
-
-
-<p>
-
-💪 Upper Body:
-
-${userData.upperBodyWorkouts}
-
-</p>
-
-
-
-<p>
-
-⬆️ Jump Sessions:
-
-${userData.jumpSessions}
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h2>⭐ Progress</h2>
-
-
-
-<p>
-
-Level:
-
-${userData.level}
-
-</p>
-
-
-
-<p>
-
-XP:
-
-${userData.xp}/${userData.xpToNextLevel}
-
-</p>
-
-
-
-<p>
-
-🥗 Nutrition XP:
-
-${userData.nutritionXP}
-
-</p>
-
-
-
-<p>
-
-📖 Diary Entries:
-
-${userData.diaryEntries.length}
-
-</p>
-
-
-
-</div>
-
 
 
 `;
 
-
-
 }
-
-
-
-}
-
 
 
 
@@ -3102,123 +1468,68 @@ ${userData.diaryEntries.length}
 if(page === "badges"){
 
 
-
 const earned =
 userData.unlockedBadges.length;
 
+
 const total =
 Object.keys(badges).length;
-
-const categories = [
-
-    "Getting Started",
-
-    "Streak",
-
-    "Core",
-
-    "Strength",
-
-    "Flexibility",
-
-    "Nutrition",
-
-    "Diary",
-
-    "Special"
-
-];
-
-const selected =
-userData.selectedBadgeCategory || "Getting Started";
-
-
 
 
 
 content = `
 
 
-
 <h1>🏆 Trophy Room</h1>
-
-
-
-
 
 
 <div class="card">
 
-
 <h2>
-
 🏅 ${earned}/${total}
-
 </h2>
 
-
 <p>
-
 Badges Earned
-
 </p>
 
 
-
 </div>
-
-
-
-
-
-
-
-<div class="badge-tabs">
-
-${categories.map(category=>`
-
-<button
-class="${selected===category ? "active-tab" : ""}"
-onclick="changeBadgeCategory('${category}')">
-
-${category}
-
-</button>
-
-`).join("")}
-
-</div>
-
 
 
 <div class="badge-gallery">
 
-${Object.keys(badges)
 
-.filter(id=>badges[id].category===selected)
+${Object.keys(badges).map(id=>{
 
-.map(id=>{
 
 const badge = badges[id];
+
 
 const unlocked =
 userData.unlockedBadges.includes(id);
 
+
+
 return `
+
 
 <div class="badge-card ${unlocked ? "unlocked":"locked"}">
 
+
 <h2>
 
-${unlocked ? badge.icon : "🔒"}
+${unlocked ? badge.icon:"🔒"}
 
 </h2>
 
+
 <h3>
 
-${unlocked ? badge.name : "Locked Badge"}
+${unlocked ? badge.name:"Locked Badge"}
 
 </h3>
+
 
 <p>
 
@@ -3226,25 +1537,19 @@ ${badge.description}
 
 </p>
 
-<p>
-
-⭐ ${badge.rarity}
-
-</p>
 
 </div>
+
 
 `;
 
 }).join("")}
 
+
 </div>
 
 
-
 `;
-
-
 
 }
 
@@ -3254,25 +1559,18 @@ ${badge.description}
 
 
 
-
-
 // =====================
-// SETTINGS PAGE
+// SETTINGS
 // =====================
 
 
 if(page === "settings"){
 
 
-
 content = `
 
 
-
 <h1>⚙️ Settings</h1>
-
-
-
 
 
 
@@ -3280,7 +1578,6 @@ content = `
 
 
 <h2>🌈 App Mode</h2>
-
 
 
 
@@ -3292,15 +1589,11 @@ content = `
 
 
 
-
-
 <button onclick="changeMode('Vacation')">
 
 🤍 Vacation
 
 </button>
-
-
 
 
 
@@ -3312,11 +1605,7 @@ content = `
 
 
 
-
 </div>
-
-
-
 
 
 
@@ -3333,15 +1622,9 @@ content = `
 
 
 <input
-
 type="checkbox"
-
 ${userData.arfidSupport ? "checked":""}
-
 onclick="toggleARFID()"
-
-
-
 >
 
 
@@ -3356,69 +1639,9 @@ ARFID Support Mode
 
 
 
-
-
-
-
-<div class="card">
-
-
-<h2>🗓️ Event Mode</h2>
-
-
-
-<p>
-
-Event Mode activates automatically when you have an Event scheduled for today.
-
-</p>
-
-
-
-<p>
-
-Current Mode:
-
-${userData.mode}
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<button onclick="resetProgress()">
-
-
-Reset Progress
-
-
-</button>
-
-
-
-</div>
-
-
-
 `;
 
-
-
 }
-
-
-
 
 
 
@@ -3433,97 +1656,61 @@ Reset Progress
 app.innerHTML = content + `
 
 
-
 <div class="bottom-nav">
 
 
-
 <button onclick="showPage('calendar')">
-
 🗓️
-
 </button>
 
 
 <button onclick="showPage('home')">
-
 🏠
-
 </button>
-
-
 
 
 <button onclick="showPage('training')">
-
 💪
-
 </button>
-
-
 
 
 <button onclick="showPage('nutrition')">
-
 🥗
-
 </button>
 
 
-
-
 <button onclick="showPage('foodlog')">
-
 📋
-
 </button>
 
 
 <button onclick="showPage('diary')">
-
 📔
-
 </button>
 
 
 <button onclick="showPage('badges')">
-
 🏆
-
 </button>
-
-
 
 
 <button onclick="showPage('profile')">
-
 👤
-
 </button>
-
-
 
 
 <button onclick="showPage('settings')">
-
 ⚙️
-
 </button>
-
 
 
 </div>
 
 
-
 `;
 
 
-
 }
-
-
-
 
 
 
