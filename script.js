@@ -2591,6 +2591,8 @@ value="${userData.calorieProfile.weight}"
 Calculate
 </button>
 
+<div id="calorieResults"></div>
+
 </div>
 
 `;
@@ -2610,7 +2612,7 @@ content = `
 
 <div class="card">
 
-<p>Calculate your recommended daily calories.</p>
+<h2>Your Information</h2>
 
 <input
 id="calcAge"
@@ -2624,7 +2626,13 @@ placeholder="Age"
 </select>
 
 <input
-id="calcHeight"
+id="calcFeet"
+type="number"
+placeholder="Height (feet)"
+>
+
+<input
+id="calcInches"
 type="number"
 placeholder="Height (inches)"
 >
@@ -2649,10 +2657,21 @@ placeholder="Weight (lbs)"
 
 </select>
 
+
+<select id="calcGoal">
+
+<option value="loss">Fat Loss</option>
+
+<option value="maintain">Maintenance</option>
+
+<option value="gain">Muscle Gain</option>
+
+</select>
+
+
 <button onclick="calculateCalories()">
 Calculate
 </button>
-
 <div id="calorieResults"></div>
 
 </div>
