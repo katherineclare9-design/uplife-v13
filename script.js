@@ -771,23 +771,26 @@ else{
 
 userData.calorieProfile = {
 
-    age: age,
+```
+age: age,
 
-    sex: sex,
+sex: sex,
 
-    height: height,
+height: height,
 
-    weight: weight,
+weight: weight,
 
-    activity: activity,
+activity: activity,
 
-    goal: goal,
+calorieGoal: goal,
 
-    maintenance: maintain,
-
-    calorieEstimate: calorieTarget
+calorieEstimate: calorieTarget
+```
 
 };
+
+userData.calorieTargetToday = maintain;
+
 
 
 saveUserData();
@@ -890,7 +893,16 @@ function addNutritionFood(){
 
 
 
-    userData.caloriesToday += calories;
+userData.caloriesToday += calories;
+
+if(!userData.calorieTargetToday){
+
+```
+userData.calorieTargetToday =
+userData.calorieProfile.calorieEstimate || 0;
+```
+
+}
 
 
 
@@ -1487,12 +1499,39 @@ Calculate Calories
 
 <h2>🔥 Calories Today</h2>
 
-
 <h1>
 
 ${userData.caloriesToday}
 
 </h1>
+
+<p>
+
+🎯 Goal:
+
+${userData.calorieTargetToday || "Set calculator first"}
+
+</p>
+
+<p>
+
+Remaining:
+
+${
+userData.calorieTargetToday
+?
+Math.max(
+userData.calorieTargetToday - userData.caloriesToday,
+0
+)
+:
+"—"
+}
+
+calories
+
+</p>
+
 
 
 
