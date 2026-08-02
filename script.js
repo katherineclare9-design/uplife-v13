@@ -769,6 +769,30 @@ else{
 
 }
 
+userData.calorieProfile = {
+
+    age: age,
+
+    sex: sex,
+
+    height: height,
+
+    weight: weight,
+
+    activity: activity,
+
+    goal: goal,
+
+    maintenance: maintain,
+
+    calorieEstimate: calorieTarget
+
+};
+
+
+saveUserData();
+
+
 document.getElementById("calorieResults").innerHTML = `
         <h2>Recommended Calories</h2>
 
