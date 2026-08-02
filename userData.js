@@ -161,6 +161,8 @@ badgeDates:{},
 
 caloriesToday:0,
 
+calorieTargetToday:0,
+
 
 waterToday:0,
 
