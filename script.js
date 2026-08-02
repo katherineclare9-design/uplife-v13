@@ -707,8 +707,11 @@ const age = Number(document.getElementById("calcAge").value);
 
 const sex = document.getElementById("calcSex").value;
 
-const height = Number(document.getElementById("calcHeight").value);
+const feet = Number(document.getElementById("calcFeet").value);
 
+const inches = Number(document.getElementById("calcInches").value);
+
+const height = (feet * 12) + inches;
 const weight = Number(document.getElementById("calcWeight").value);
 
 const activityElement = document.getElementById("calcActivity");
