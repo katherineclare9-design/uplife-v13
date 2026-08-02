@@ -530,18 +530,19 @@ function addWater(){
 
 function resetWater(){
 
-
     userData.waterToday = 0;
-
 
     saveUserData();
 
-
     showPage("nutrition");
-
 
 }
 
+function showCalorieCalculator(){
+
+    showPage("calorieCalculator");
+
+}
 
 
 
@@ -700,8 +701,81 @@ function completeWorkout(workoutName){
 // =====================
 
 
-function addNutritionFood(){
+function calculateCalories(){
 
+const age = Number(document.getElementById("calcAge").value);
+
+const sex = document.getElementById("calcSex").value;
+
+const height = Number(document.getElementById("calcHeight").value);
+
+const weight = Number(document.getElementById("calcWeight").value);
+
+const activityElement = document.getElementById("calcActivity");
+
+if(!activityElement){
+
+    return;
+
+}
+    const kg = weight * 0.453592;
+
+    const cm = height * 2.54;
+
+    let bmr;
+
+    if(sex === "Male"){
+
+        bmr = 10 * kg + 6.25 * cm - 5 * age + 5;
+
+    }
+
+    else{
+
+        bmr = 10 * kg + 6.25 * cm - 5 * age - 161;
+
+    }
+
+const activity = Number(document.getElementById("calcActivity").value);
+
+const goal = document.getElementById("calcGoal")
+    ? document.getElementById("calcGoal").value
+    : "maintain";
+
+
+let calorieTarget;
+
+
+if(goal === "loss"){
+
+    calorieTarget = `${maintain - 500} - ${maintain - 250}`;
+
+}
+
+else if(goal === "gain"){
+
+    calorieTarget = `${maintain + 250} - ${maintain + 500}`;
+
+}
+
+else{
+
+    calorieTarget = maintain;
+
+}
+
+
+document.getElementById("calorieResults").innerHTML = `
+        <h2>Recommended Calories</h2>
+
+<p><b>Your Goal:</b> ${calorieTarget} calories</p>
+
+<p><b>Maintenance:</b> ${maintain} calories</p>
+    `;
+
+}
+
+function addNutritionFood(){
 
 
     const food =
@@ -1331,6 +1405,30 @@ content = `
 
 <h1>🥗 Nutrition</h1>
 
+<div class="card">
+
+<h2>🎯 Daily Calorie Estimate</h2>
+
+<p>
+
+${
+userData.calorieProfile.calorieEstimate
+?
+userData.calorieProfile.calorieEstimate
+:
+"No estimate yet."
+
+}
+
+</p>
+
+<button onclick="showPage('calorieCalculator')">
+
+Calculate Calories
+
+</button>
+
+</div>
 
 
 
@@ -1496,9 +1594,25 @@ placeholder="Notes"
 
 <div class="card">
 
+<h2>🔥 Calorie Calculator</h2>
+
+<p>
+
+Find your recommended daily calorie intake.
+
+</p>
+
+<button onclick="showCalorieCalculator()">
+
+Open Calculator
+
+</button>
+
+</div>
+
+<div class="card">
 
 <h2>📖 Today</h2>
-
 
 <p>
 
@@ -1506,14 +1620,11 @@ Your food history is saved in your Diary.
 
 </p>
 
-
-
 <button onclick="showPage('foodlog')">
 
 Open Food Log
 
 </button>
-
 
 </div>
 
@@ -2401,6 +2512,152 @@ onchange="completeWorkout('${item}')"
 
 
 
+
+// =====================
+// CALORIE CALCULATOR PAGE
+// =====================
+
+if(page === "calorieCalculator"){
+
+content = `
+
+<h1>🔥 Calorie Calculator</h1>
+
+<div class="card">
+
+<h2>Your Information</h2>
+
+<input
+id="calcAge"
+type="number"
+placeholder="Age"
+value="${userData.calorieProfile.age}"
+>
+
+<select id="calcSex">
+<option ${userData.calorieProfile.sex==="Female"?"selected":""}>Female</option>
+<option ${userData.calorieProfile.sex==="Male"?"selected":""}>Male</option>
+</select>
+
+<input
+id="calcFeet"
+type="number"
+placeholder="Height (feet)"
+value="${userData.calorieProfile.heightFeet}"
+>
+
+<input
+id="calcInches"
+type="number"
+placeholder="Height (inches)"
+value="${userData.calorieProfile.heightInches}"
+>
+
+<input
+id="calcWeight"
+type="number"
+placeholder="Weight (lbs)"
+value="${userData.calorieProfile.weight}"
+>
+
+<select id="calcActivity">
+
+<option value="1.2">Little or no exercise</option>
+
+<option value="1.375">Light exercise (1–3 days/week)</option>
+
+<option value="1.55">Moderate exercise (3–5 days/week)</option>
+
+<option value="1.725">Heavy exercise (6–7 days/week)</option>
+
+<option value="1.9">Very heavy exercise / athlete</option>
+
+</select>
+
+
+<select id="calcGoal">
+
+<option value="loss">Fat Loss</option>
+
+<option value="maintain">Maintenance</option>
+
+<option value="gain">Muscle Gain</option>
+
+</select>
+
+<button onclick="calculateCalories()">
+Calculate
+</button>
+
+</div>
+
+`;
+
+
+}
+
+// =====================
+// CALORIE CALCULATOR
+// =====================
+
+if(page === "calorieCalculator"){
+
+content = `
+
+<h1>🔥 Calorie Calculator</h1>
+
+<div class="card">
+
+<p>Calculate your recommended daily calories.</p>
+
+<input
+id="calcAge"
+type="number"
+placeholder="Age"
+>
+
+<select id="calcSex">
+<option>Female</option>
+<option>Male</option>
+</select>
+
+<input
+id="calcHeight"
+type="number"
+placeholder="Height (inches)"
+>
+
+<input
+id="calcWeight"
+type="number"
+placeholder="Weight (lbs)"
+>
+
+<select id="calcActivity">
+
+<option value="1.2">Little or no exercise</option>
+
+<option value="1.375">Light exercise (1–3 days/week)</option>
+
+<option value="1.55">Moderate exercise (3–5 days/week)</option>
+
+<option value="1.725">Heavy exercise (6–7 days/week)</option>
+
+<option value="1.9">Very heavy exercise / athlete</option>
+
+</select>
+
+<button onclick="calculateCalories()">
+Calculate
+</button>
+
+<div id="calorieResults"></div>
+
+</div>
+
+`;
+
+}
 
 // =====================
 // PROFILE PAGE
