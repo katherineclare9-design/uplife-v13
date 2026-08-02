@@ -793,6 +793,28 @@ userData.calorieProfile = {
 saveUserData();
 
 
+userData.calorieProfile = {
+
+    age: age,
+
+    sex: sex,
+
+    height: height,
+
+    weight: weight,
+
+    activity: activity,
+
+    calorieGoal: goal,
+
+    calorieEstimate: calorieTarget
+
+};
+
+
+saveUserData();
+
+
 document.getElementById("calorieResults").innerHTML = `
         <h2>Recommended Calories</h2>
 
@@ -1442,12 +1464,11 @@ content = `
 ${
 userData.calorieProfile.calorieEstimate
 ?
-userData.calorieProfile.calorieEstimate
+userData.calorieProfile.calorieEstimate + " calories/day"
 :
 "No estimate yet."
 
 }
-
 </p>
 
 <button onclick="showPage('calorieCalculator')">
@@ -2559,7 +2580,7 @@ content = `
 id="calcAge"
 type="number"
 placeholder="Age"
-value="${userData.calorieProfile.age}"
+value="${userData.calorieProfile.age || ""}"
 >
 
 <select id="calcSex">
@@ -2575,17 +2596,17 @@ value="${userData.calorieProfile.heightFeet}"
 >
 
 <input
-id="calcInches"
+id="calcHeight"
 type="number"
 placeholder="Height (inches)"
-value="${userData.calorieProfile.heightInches}"
+value="${userData.calorieProfile.height || ""}"
 >
 
 <input
 id="calcWeight"
 type="number"
 placeholder="Weight (lbs)"
-value="${userData.calorieProfile.weight}"
+value="${userData.calorieProfile.weight || ""}"
 >
 
 <select id="calcActivity">
@@ -2605,11 +2626,17 @@ value="${userData.calorieProfile.weight}"
 
 <select id="calcGoal">
 
-<option value="loss">Fat Loss</option>
+<option value="loss" ${userData.calorieProfile.calorieGoal==="loss"?"selected":""}>
+Fat Loss
+</option>
 
-<option value="maintain">Maintenance</option>
+<option value="maintain" ${userData.calorieProfile.calorieGoal==="maintain"?"selected":""}>
+Maintenance
+</option>
 
-<option value="gain">Muscle Gain</option>
+<option value="gain" ${userData.calorieProfile.calorieGoal==="gain"?"selected":""}>
+Muscle Gain
+</option>
 
 </select>
 
@@ -2671,18 +2698,27 @@ placeholder="Weight (lbs)"
 
 <select id="calcActivity">
 
-<option value="1.2">Little or no exercise</option>
+<option value="1.2" ${userData.calorieProfile.activity==1.2?"selected":""}>
+Little or no exercise
+</option>
 
-<option value="1.375">Light exercise (1–3 days/week)</option>
+<option value="1.375" ${userData.calorieProfile.activity==1.375?"selected":""}>
+Light exercise (1–3 days/week)
+</option>
 
-<option value="1.55">Moderate exercise (3–5 days/week)</option>
+<option value="1.55" ${userData.calorieProfile.activity==1.55?"selected":""}>
+Moderate exercise (3–5 days/week)
+</option>
 
-<option value="1.725">Heavy exercise (6–7 days/week)</option>
+<option value="1.725" ${userData.calorieProfile.activity==1.725?"selected":""}>
+Heavy exercise (6–7 days/week)
+</option>
 
-<option value="1.9">Very heavy exercise / athlete</option>
+<option value="1.9" ${userData.calorieProfile.activity==1.9?"selected":""}>
+Very heavy exercise / athlete
+</option>
 
 </select>
-
 
 <select id="calcGoal">
 
